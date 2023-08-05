@@ -1,27 +1,18 @@
 const TelegramBot = require('node-telegram-bot-api');
-const express = require('express')
 
-const app = express()
+// Replace 'YOUR_TELEGRAM_BOT_TOKEN' with your actual bot token from the BotFather.
+const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
 
-// Replace 'YOUR_TELEGRAM_BOT_TOKEN' with the token you received from BotFather
-const bot = new TelegramBot('6330218077:AAHdotEqxrfnMiqXIPvcVj64-ITzIYmhR2M', { polling: true });
+// Create a new bot instance with your token.
+const bot = new TelegramBot(botToken, { polling: true });
 
-// Handle incoming messages
+// This event will be triggered when someone sends a message to your bot.
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
   const messageText = msg.text;
 
-  if (messageText === '/hello') {
-    bot.sendMessage(chatId, 'Hello there!');
-  } else {
-    bot.sendMessage(chatId, 'I don\'t understand that command. Try /hello.');
-  }
+  // Respond to the received message. In this example, we'll just echo it back.
+  bot.sendMessage(chatId, `You said: ${messageText}`);
 });
 
-// Handle /start command
-bot.onText(/\/start/, (msg) => {
-  const chatId = msg.chat.id;
-  bot.sendMessage(chatId, 'Welcome to your Telegram bot! Type /hello to get a greeting.');
-});
-
-app.listen(5000, ()=>{console.log("listing")})
+console.log('Bot is running...');
