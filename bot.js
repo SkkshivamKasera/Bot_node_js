@@ -1,12 +1,16 @@
+const express = require('express');
 const TelegramBot = require('node-telegram-bot-api');
 
 // Replace 'YOUR_TELEGRAM_BOT_TOKEN' with your actual bot token from the BotFather.
-const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';
+const botToken = '6330218077:AAHdotEqxrfnMiqXIPvcVj64-ITzIYmhR2M';
 
-// Create a new bot instance with your token.
+// Create an instance of Express
+const app = express();
+
+// Create a new bot instance
 const bot = new TelegramBot(botToken, { polling: true });
 
-// This event will be triggered when someone sends a message to your bot.
+// Define a route for handling incoming Telegram messages
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
   const messageText = msg.text;
@@ -15,4 +19,13 @@ bot.on('message', (msg) => {
   bot.sendMessage(chatId, `You said: ${messageText}`);
 });
 
-console.log('Bot is running...');
+// Define a route for handling HTTP requests
+app.get('/', (req, res) => {
+  res.send('Hello, Express!');
+});
+
+// Start the server
+const port = 3000; // You can use any available port number
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
